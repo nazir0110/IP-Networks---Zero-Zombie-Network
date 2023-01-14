@@ -1,0 +1,89 @@
+Exercise 1
+Question 1
+- In subnet 1 there are 13 hosts + 1 router. So, we only need 14 ports + 2 ports for subnet address and broadcast address. In total it makes 16 ports. For the subnet 2 there are 5 + 1 + 2 ports, so we need only 8 ports for it. For subnet 3 we have 2 + 2 ports, so 4 and for subnet 4 we have 2 + 2 ports as well. So in total we need 32 addresses.
+193.137.1.0 is our starting address, and we are using 32 addresses in the total, so the final address is 193.137.1.31. Then, the subnet address is 193.137.1.0/27.
+Question 2
+- We need only 2 ports + 2 ports for subnet and broadcast addresses, so the subnet address is 193.137.1.0/30.
+Question 3
+- There are only 2 ports available for assigning (193.137.1.1, 193.137.1.2). So, 193.137.1.1 is assigned to the end 1 and 193.137.1.2 is assigned to the end 2. 193.137.1.0 is our subnet network address and 193.137.1.3 is broadcast address of the subnet.
+Question 4
+- The next 2 ports(again + 2 ports for network and broadcast addressing) are 193.137.1.4 - 193.137.1.7 and the network address is 193.137.1.4/30.
+Question 5
+- The next 2 ports(+ 2) are 193.137.1.5 which will be assigned to the end 3 and 193.137.1.6 which will be assigned to the end 4.
+Question 6
+193.137.1.7 is reserved for the broadcast address of subnet 4 and 193.137.1.8 will be the address of the new subnet, so the first available address is 193.137.1.9.
+- We cannot start subnet 1 with 16 addressed at 193.137.1.8, so we need to start it at 193.137.1.16 and we can start subnet 2 at 193.137.1.8. This way we will use our 32 free addresses in the most efficient way, since all the addresses will be in sequential order. So the network address of the subnet 1 will be 193.137.1.16/28 and the network address of the subnet 2 will be 193.137.1.8/29.
+Question 7
+- As explained in the answer to the previous question the network address of the subnet 1 is 193.137.1.16/28 and the first available address of the subnet is 193.137.1.17 which will be assigned to the port of the hinge router.
+Question 8
+- As explained in the answer to the question 6 the network address of the subnet 2 is 193.137.1.8/29 and the first available address of the subnet is 193.137.1.9 which will be assigned to the port of the incoming router.
+
+Exercise 2
+Question 1
+- Destination address is the address of the machine that should receive the packet. The mask is the mask of the subnetwork that the machine is located in. The gateway is the address of the router that will redirect the packet if the current router is connected to the machine directly.
+Question 2
+For base:
+ _______________________________________________________________________________
+|			|		|			|		|
+|	Destination	|	Mask	|	Gateway		|	Type	|
+|_______________________|_______________|_______________________|_______________|
+|			|		|			|		|
+|	193.137.1.8	|	/29	|	193.137.1.2	|	remote	|
+|_______________________|_______________|_______________________|_______________|
+|			|		|			|		|
+|	193.137.1.16	|	/28	|	193.137.1.2	|	remote	|
+|_______________________|_______________|_______________________|_______________|
+|			|		|			|		|
+|	193.137.1.2	|	/32	|	-		|	local	|
+|_______________________|_______________|_______________________|_______________|
+|			|		|			|		|
+|	0.0.0.0		|	/0	|	default		|	remote	|
+|_______________________|_______________|_______________________|_______________|
+
+
+Question 3
+For hinge:
+
+ _______________________________________________________________________________
+|			|		|			|		|
+|	Destination	|	Mask	|	Gateway		|	Type	|
+|_______________________|_______________|_______________________|_______________|
+|			|		|			|		|
+|	193.137.1.8	|	/29	|	193.137.1.6	|	remote	|
+|_______________________|_______________|_______________________|_______________|
+|			|		|			|		|
+|	193.137.1.16	|	/28	|	-		|	local	|
+|_______________________|_______________|_______________________|_______________|
+|			|		|			|		|
+|	193.137.1.1	|	/32	|	-		|	local	|
+|_______________________|_______________|_______________________|_______________|
+|			|		|			|		|
+|	193.137.1.6	|	/32	|	-		|	local	|
+|_______________________|_______________|_______________________|_______________|
+|			|		|			|		|
+|	0.0.0.0		|	/0	|	193.137.1.1	|	remote	|
+|_______________________|_______________|_______________________|_______________|
+
+Question 4
+For arrivals:
+
+ _______________________________________________________________________________
+|			|		|			|		|
+|	Destination	|	Mask	|	Gateway		|	Type	|
+|_______________________|_______________|_______________________|_______________|
+|			|		|			|		|
+|	193.137.1.8	|	/29	|	-		|	local	|
+|_______________________|_______________|_______________________|_______________|
+|			|		|			|		|
+|	193.137.1.16	|	/28	|	193.137.1.5	|	remote	|
+|_______________________|_______________|_______________________|_______________|
+|			|		|			|		|
+|	193.137.1.5	|	/32	|	-		|	local	|
+|_______________________|_______________|_______________________|_______________|
+|			|		|			|		|
+|	0.0.0.0		|	/0	|	193.137.1.5	|	remote	|
+|_______________________|_______________|_______________________|_______________|
+
+Question 5
+- Addressing plan is satisfactory, since there are no problems with any of the routes. All subnets are connected and any machine from any subnet can connect to any machine in the whole subnet of a company.
+- For any new subnet we will need to add 1 additional entry to the routing table of each router.
